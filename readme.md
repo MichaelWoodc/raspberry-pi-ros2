@@ -91,9 +91,12 @@ ros2
 
 # 13. Install Micro Ros Agent (if needed, will confirm later)
 ```shell
+sudo apt install docker.io
+sudo usermod -aG docker $USER
+newgrp docker
 docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 --port 8888
 ```
-
+should not need to run this: sudo groupadd docker
 
 
 
