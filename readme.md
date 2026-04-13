@@ -3,7 +3,7 @@
 # Clean, minimal, correct, and dependency-safe
 ###############################################
 
-# 1. Fix locale (ROS requires UTF‑8)
+### 1. Fix locale (ROS requires UTF‑8)
 ```shell
 sudo apt update
 sudo apt install -y locales
@@ -12,14 +12,15 @@ sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 ```
 
-# 2. Ensure Ubuntu sources include noble-updates (critical!)
+### 2. Ensure Ubuntu sources include noble-updates (critical!)
 # Edit this file and ensure Suites includes:
 #   noble noble-updates noble-backports
 ```shell
 sudo nano /etc/apt/sources.list.d/ubuntu.sources
 ```
 
-# Example correct block:
+### Example correct block:
+```shell
 # Types: deb
 # URIs: http://ports.ubuntu.com/ubuntu-ports/
 # Suites: noble noble-updates noble-backports
@@ -31,59 +32,59 @@ sudo nano /etc/apt/sources.list.d/ubuntu.sources
 # Suites: noble-security
 # Components: main restricted universe multiverse
 # Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-# 3. Update and repair system packages
+```
+### 3. Update and repair system packages
 ```shell
 sudo apt update
 sudo apt --fix-broken install -y
 ```
 
-# 4. Install required tools for extracting ROS binaries
+### 4. Install required tools for extracting ROS binaries
 ```shell
 sudo apt install -y tar bzip2 wget
 ```
 
-# 5. Create ROS install directory
+### 5. Create ROS install directory
 ```shell
 mkdir -p ~/ros2_kilted
 cd ~/ros2_kilted
 ```
 
-# 6. Download ROS 2 Kilted (ARM64, Noble)
+### 6. Download ROS 2 Kilted (ARM64, Noble)
 ```shell
 wget https://github.com/ros2/ros2/releases/download/release-kilted-20250728/ros2-kilted-20250728-linux-noble-arm64.tar.bz2
 ```
 
-# 7. Extract ROS 2
+### 7. Extract ROS 2
 ```shell
 tar xf ros2-kilted-20250728-linux-noble-arm64.tar.bz2
 ```
 
-# 8. Install rosdep
+### 8. Install rosdep
 ```shell
 sudo apt install -y python3-rosdep
 sudo rosdep init
 rosdep update
 ```
 
-# 9. Install ROS 2 dependencies (skip middleware you don’t need)
+### 9. Install ROS 2 dependencies (skip middleware you don’t need)
 ```shell
 rosdep install --from-paths ~/ros2_kilted/ros2-linux/share \
   --ignore-src -y \
   --skip-keys "cyclonedds fastcdr fastdds iceoryx_binding_c rmw_connextdds rti-connext-dds-7.3.0 urdfdom_headers"
 ```
-# 10. Source ROS 2 for this shell
+### 10. Source ROS 2 for this shell
 ```shell
 source ~/ros2_kilted/ros2-linux/setup.bash
 ```
 
-# 11. Make ROS 2 sourcing persistent
+### 11. Make ROS 2 sourcing persistent
 ```shell
 echo "source ~/ros2_kilted/ros2-linux/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-# 12. Verify installation
+### 12. Verify installation
 ```shell
 ros2
 ```
